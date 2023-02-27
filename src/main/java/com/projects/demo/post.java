@@ -7,6 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class post {
 
+	@Override
+	public String toString() {
+		return "post [id=" + id + ", ownerUsername=" + ownerUsername + ", type=" + type + ", give=" + give + ", rooms="
+				+ rooms + ", address=" + address + ", price=" + price + ", description=" + description + "]";
+	}
+
 	@Id
 	private String id;
 	
