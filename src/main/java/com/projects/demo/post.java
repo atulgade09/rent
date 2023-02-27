@@ -1,5 +1,7 @@
 package com.projects.demo;
 
+import java.util.List;
+
 import javax.persistence.Id;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,6 +19,15 @@ public class post {
 	private String address;
 	private String price;
 	private String description;
+	private List<String> image;
+
+	public List<String> getImage() {
+		return image;
+	}
+
+	public void setImage(List<String> image) {
+		this.image = image;
+	}
 
 	public String getId() {
 		return id;

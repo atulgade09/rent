@@ -100,7 +100,7 @@ input {
 			</div>
 		</div>
 	</nav>
-	<form action="/savePost" method="post">
+	<form action="/savePost" method="post" enctype="multipart/form-data">
 
 		<div class="container-fluid">
 			<div class="card">
@@ -145,7 +145,7 @@ input {
 							<div class="mb-3">
 								<label for="formFileMultiple" class="form-label">Upload
 									Images</label> <input class="form-control" type="file"
-									id="formFileMultiple" multiple>
+									id="formFileMultiple" name="file" multiple>
 							</div>
 						</div>
 						<div class="col-md-4 pt-2">
