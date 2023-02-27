@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,9 +34,11 @@ public class HomeController {
 	@Autowired
 	postRepo repo;
 	
-	private Owner ownerGlobal=new Owner();
+	private User ownerGlobal=new User();
 	
 	private post postGlobal=new post();
+	
+
 
 	@GetMapping("/")
 	public String home() {
@@ -46,17 +49,8 @@ public class HomeController {
 	public String register() {
 		return "register";
 	}
-
-	@GetMapping("/propertyScreen")
-	public String propertyScreen(Model model) {
-		model.addAttribute("type",postGlobal.getType());
-		model.addAttribute("address",postGlobal.getAddress());
-		model.addAttribute("price",postGlobal.getPrice());
-		return "propertyScreen";
-	}
-
-	@GetMapping("/OwnerScreen")
-	public String OwnerScreen(Model model) {
+	@GetMapping("/CustomerScreen")
+	public String CustomerScreen(Model model) {
 		List<post> posts=ser2.postList();
 		System.out.println("hi");
 		
@@ -68,6 +62,33 @@ public class HomeController {
 		model.addAttribute("contactNo", ownerGlobal.getContactNo());
 		model.addAttribute("date_Of_Birth", date);
 		model.addAttribute("type", ownerGlobal.getType());
+		return "CustomerScreen";
+	}
+
+	@GetMapping("/propertyScreen")
+	public String propertyScreen(Model model) {
+		model.addAttribute("type",postGlobal.getType());
+		model.addAttribute("address",postGlobal.getAddress());
+		model.addAttribute("price",postGlobal.getPrice());
+		model.addAttribute("id", postGlobal.getId());
+		return "propertyScreen";
+	}
+
+	@GetMapping("/OwnerScreen")
+	public String OwnerScreen(Model model) {
+		List<post> posts=ser2.postList();
+	
+		
+		model.addAttribute("posts", posts);
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(ownerGlobal.getDate_Of_Birth());
+		model.addAttribute("name", ownerGlobal.getName());
+		model.addAttribute("email", ownerGlobal.getEmail());
+		model.addAttribute("gender", ownerGlobal.getGender());
+		model.addAttribute("contactNo", ownerGlobal.getContactNo());
+		model.addAttribute("date_Of_Birth", date);
+		model.addAttribute("type", ownerGlobal.getType());
+		
+		
 		return "OwnerScreen";
 	}
 
@@ -79,12 +100,14 @@ public class HomeController {
 	@PostMapping("/loginCheck")
 	public String loginCheck(@RequestParam("username") String username, @RequestParam("password") String password,
 			org.springframework.ui.Model model) {
-		Owner owner = ser.findUser(username, password);
-		ownerGlobal=owner;
+		User user = ser.findUser(username, password);
+		ownerGlobal=user;
 //		System.out.println(owner.getEmail()+" "+owner.getPassword());
-		if (owner != null) {
-			
+		if (user != null) {
+			if(user.getType().equals("Owner"))
 			return "redirect:OwnerScreen";
+			else return "redirect:CustomerScreen";
+
 		} else
 			return "register";
 	}
@@ -103,11 +126,13 @@ public class HomeController {
 
 		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(date_Of_Birth);
 
-		Owner owner = new Owner(email, name, contactNo, gender, type, date, password);
+		User user = new User(email, name, contactNo, gender, type, date, password);
 
-		Owner o = ser.saveO(owner);
-		ownerGlobal=owner;
-		return "OwnerScreen";
+		User o = ser.saveO(user);
+		ownerGlobal=user;
+		if(user.getType().equals("Owner"))
+			return "redirect:OwnerScreen";
+			else return "redirect:CustomerScreen";
 	}
 
 	@PostMapping("/savePost")
@@ -140,10 +165,11 @@ public class HomeController {
 	
 	@RequestMapping("/deletePost/{id}")
 	public String deletePost(@PathVariable String id) {
-
+		
 		ser2.deleteBypId(id);
-		repo.deleteByValue(id);
-		System.out.println("dele");
+//		repo.deleteByValue(id);
+
+	
 		return "redirect:/OwnerScreen";
 	}
 

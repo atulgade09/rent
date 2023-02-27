@@ -12,7 +12,7 @@ import lombok.Data;
 
 
 @Document
-public class Owner {
+public class User {
 
 	@Id
 	private String email;
@@ -29,11 +29,11 @@ public class Owner {
 	
 	private String password;
 	
-	public Owner() {
+	public User() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Owner(String email, String name, String contactNo, String gender, String type, Date date_Of_Birth,
+	public User(String email, String name, String contactNo, String gender, String type, Date date_Of_Birth,
 			String password) {
 		super();
 		this.email = email;

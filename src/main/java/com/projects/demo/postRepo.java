@@ -15,7 +15,10 @@ public interface postRepo extends MongoRepository<post, String> {
 	@Override
 	public List<post> findAll();
 	
-	@Query(value="{'_id' : $0}")
-	post deleteByValue(String id);
+//	@Query(value="{'_id' : $0}")
+//	post deleteByValue(String id);
+	
+	@Override
+	public void deleteById(String id);
 	
 }

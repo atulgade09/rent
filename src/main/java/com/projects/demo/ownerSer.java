@@ -9,11 +9,11 @@ public class ownerSer {
 	@Autowired
 	ownerRepo repo;
 	
-	public Owner saveO(Owner owner) {
+	public User saveO(User owner) {
 		return repo.save(owner);
 	}
 	
-	public Owner findUser(String username,String password) {
+	public User findUser(String username,String password) {
 		return repo.findAll().stream().filter(db->db.getEmail().equals(username)&&db.getPassword().equals(password)).findFirst().orElse(null);
 	}
 
