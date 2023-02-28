@@ -97,6 +97,7 @@ public class HomeController {
 		List<String> img = new ArrayList<>();
 		for (int i = 0; i < postGlobal.getImage().size(); i++) {
 			img.add(postGlobal.getImage().get(i));
+			System.out.println(postGlobal.getImage().get(i));
 		}
 
 		model.addAttribute("img1", "");

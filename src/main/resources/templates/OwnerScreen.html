@@ -165,7 +165,7 @@ input {
 						<div class="card-body">
 							<div class="d-flex position-relative">
 								<img height="130"
-									th:src="*{'data:image/jpg;base64,'+{post.image}}"
+									th:src="${'uploads/'+{post.image}}"
 									class="flex-shrink-0 me-3" alt="...">
 								<div>
 									<h5 class="mt-0" th:text="${post.type}"></h5>
