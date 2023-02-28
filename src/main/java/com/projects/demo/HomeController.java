@@ -41,12 +41,12 @@ public class HomeController {
 
 	@Autowired
 	FilesStorageService storageService;
-	
-	private User userGlobal=new User();
-	
-	private post postGlobal=new post();
-	
-	private List<post>filteredList=null;
+
+	private User userGlobal = new User();
+
+	private post postGlobal = new post();
+
+	private List<post> filteredList = null;
 
 	@GetMapping("/")
 	public String home() {
@@ -57,15 +57,28 @@ public class HomeController {
 	public String register() {
 		return "register";
 	}
+	
+	@GetMapping("/EditPost")
+	public String EditPost(Model model) {
+		model.addAttribute("type", postGlobal.getType());
+		model.addAttribute("address", postGlobal.getAddress());
+		model.addAttribute("price", postGlobal.getPrice());
+		model.addAttribute("description", postGlobal.getDescription());
+		model.addAttribute("userType", userGlobal.getType());
+		model.addAttribute("give", postGlobal.getGive());
+		model.addAttribute("room", postGlobal.getRooms());
+		model.addAttribute("id", postGlobal.getId());
+		return "EditPost";
+	}
 
 	@RequestMapping("/FilteredCustomerScreen")
 	public String FilteredCustomerScreen(Model model) {
 		System.out.println("In");
-		model.addAttribute("posts",filteredList);
+		model.addAttribute("posts", filteredList);
 		System.out.println("Out");
 		return "FilteredCustomerScreen";
 	}
-	
+
 	@GetMapping("/CustomerScreen")
 	public String CustomerScreen(Model model) {
 		List<post> posts = ser2.postList();
@@ -86,17 +99,16 @@ public class HomeController {
 		model.addAttribute("type", postGlobal.getType());
 		model.addAttribute("address", postGlobal.getAddress());
 		model.addAttribute("price", postGlobal.getPrice());
-		model.addAttribute("type",postGlobal.getType());
-		model.addAttribute("userType",userGlobal.getType());
-		model.addAttribute("address",postGlobal.getAddress());
-		System.out.println("Address"+postGlobal.getAddress());
-		model.addAttribute("price",postGlobal.getPrice());
+		model.addAttribute("type", postGlobal.getType());
+		model.addAttribute("userType", userGlobal.getType());
+		model.addAttribute("address", postGlobal.getAddress());
+		model.addAttribute("price", postGlobal.getPrice());
 		model.addAttribute("id", postGlobal.getId());
 
 		System.out.println("s0");
 		List<String> img = new ArrayList<>();
 		for (int i = 0; i < postGlobal.getImage().size(); i++) {
-			img.add((String)postGlobal.getImage().get(i));
+			img.add((String) postGlobal.getImage().get(i));
 			System.out.println(postGlobal.getImage().get(i));
 		}
 
@@ -128,14 +140,6 @@ public class HomeController {
 				posts.add(ser2.postList().get(i));
 			}
 		}
-		
-		List<String> listofImage=new ArrayList<>();
-		
-		for(int i=0;i<posts.size();i++) {
-			for(int j=0;j<posts.get(i).getImage().size();j++) {
-				listofImage.add(posts.get(i).getImage().get(j));
-			}
-		}
 
 		model.addAttribute("posts", posts);
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(userGlobal.getDate_Of_Birth());
@@ -145,7 +149,7 @@ public class HomeController {
 		model.addAttribute("contactNo", userGlobal.getContactNo());
 		model.addAttribute("date_Of_Birth", date);
 		model.addAttribute("type", userGlobal.getType());
-		
+
 		return "OwnerScreen";
 	}
 
@@ -157,10 +161,11 @@ public class HomeController {
 	@PostMapping("/loginCheck")
 	public String loginCheck(@RequestParam("username") String username, @RequestParam("password") String password,
 			org.springframework.ui.Model model) {
-		if(username.equals("admin@gmail.com")&& password.equals("Admin")) return "redirect:AdminScreen";
+		if (username.equals("admin@gmail.com") && password.equals("Admin"))
+			return "redirect:AdminScreen";
 		User user = ser.findUser(username, password);
 		userGlobal = user;
-		userGlobal=user;
+		userGlobal = user;
 //		System.out.println(owner.getEmail()+" "+owner.getPassword());
 		if (user != null) {
 			if (user.getType().equals("Owner"))
@@ -191,8 +196,8 @@ public class HomeController {
 		User o = ser.saveO(user);
 		userGlobal = user;
 		if (user.getType().equals("Owner"))
-		userGlobal=user;
-		if(user.getType().equals("Owner"))
+			userGlobal = user;
+		if (user.getType().equals("Owner"))
 			return "redirect:OwnerScreen";
 		else
 			return "redirect:CustomerScreen";
@@ -232,24 +237,18 @@ public class HomeController {
 
 		posts = ser2.savePost(posts);
 
-//		List<post> postL=ser2.postList();
-//		
-//		String id=" "+(postL.size()+1);
-		
-//		posts.setImage(fileList);
-		posts=ser2.savePost(posts);
-		
+		posts = ser2.savePost(posts);
+
 		return "redirect:OwnerScreen";
 	}
 
 	@RequestMapping("/checking/{id}")
 	public String propertyScreen(@PathVariable String id) {
-post p=ser2.postById(id);
-		
-		System.out.println("ps"+p+" "+id);
-//		model.addAttribute("type", userGlobal.getType());
-		postGlobal=p;
-		
+		post p = ser2.postById(id);
+
+		System.out.println("ps" + p + " " + id);
+		postGlobal = p;
+
 		return "redirect:/propertyScreen";
 	}
 
@@ -257,19 +256,64 @@ post p=ser2.postById(id);
 	public String deletePost(@PathVariable String id) {
 
 		ser2.deleteBypId(id);
-//		repo.deleteByValue(id);
 
 		return "redirect:/OwnerScreen";
 	}
-	
+
 	@PostMapping("/search")
-	public String searchPostByName(@RequestParam String searchName, Model model){
+	public String searchPostByName(@RequestParam String searchName, Model model) {
 		System.out.println(searchName);
-		List<post>list= repo.findAll();
-		filteredList= list.stream().filter(e->e.getType().equalsIgnoreCase(searchName)).collect(Collectors.toList());
+		List<post> list = repo.findAll();
+		filteredList = list.stream().filter(e -> e.getType().equalsIgnoreCase(searchName)).collect(Collectors.toList());
 		System.out.println(filteredList);
 		System.out.println(list);
 		return "redirect:/FilteredCustomerScreen";
+	}
+	
+	@RequestMapping("/editPost/{id}")
+	public String editPost(@PathVariable String id) {
+		post p = ser2.postById(id);
+
+		System.out.println("ps" + p + " " + id);
+		postGlobal = p;
+		return "redirect:/EditPost";
+	}
+	
+	@PostMapping("/saveEditPost")
+	public String saveEditPost(@RequestParam("id") String id,@RequestParam("type") String type, @RequestParam("give") String give,
+			@RequestParam("file") MultipartFile[] file, @RequestParam("rooms") String rooms,
+			@RequestParam("address") String address, @RequestParam("price") String price,
+			@RequestParam("description") String description) throws IOException {
+
+		List<post> postL = ser2.postList();
+
+		String message = "";
+		List<String> fileNames = new ArrayList<>();
+
+		Arrays.asList(file).stream().forEach(files -> {
+			int randomNumber = (int) (Math.random() * 9999);
+			storageService.save(files, randomNumber);
+			fileNames.add(randomNumber + "-" + files.getOriginalFilename());
+		});
+//List <?>fileList=new ArrayList<>(Arrays.asList(file));
+
+		message = "Uploaded the files successfully: " + fileNames;
+
+//		String fileName = new String(file.getOriginalFilename());
+//		System.out.println(fileName);
+//		if (fileName.contains("..")) {
+//			System.out.println("not valid");
+//		}
+//
+		post posts = new post(id, userGlobal.getEmail(), type, give, rooms, address, price, description);
+//
+		posts.setImage(fileNames);
+
+		posts = ser2.savePost(posts);
+
+		posts = ser2.savePost(posts);
+
+		return "redirect:OwnerScreen";
 	}
 
 }
