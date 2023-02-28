@@ -12,7 +12,7 @@ public class post {
 	@Override
 	public String toString() {
 		return "post [id=" + id + ", ownerUsername=" + ownerUsername + ", type=" + type + ", give=" + give + ", rooms="
-				+ rooms + ", address=" + address + ", price=" + price + ", description=" + description + "]";
+				+ rooms + ", address=" + address + ", price=" + price + ", description=" + description+",image = " +image+ "]";
 	}
 
 	@Id

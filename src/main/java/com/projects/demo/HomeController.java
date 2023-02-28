@@ -96,7 +96,7 @@ public class HomeController {
 		System.out.println("s0");
 		List<String> img = new ArrayList<>();
 		for (int i = 0; i < postGlobal.getImage().size(); i++) {
-			img.add(postGlobal.getImage().get(i));
+			img.add((String)postGlobal.getImage().get(i));
 			System.out.println(postGlobal.getImage().get(i));
 		}
 
@@ -128,6 +128,14 @@ public class HomeController {
 				posts.add(ser2.postList().get(i));
 			}
 		}
+		
+		List<String> listofImage=new ArrayList<>();
+		
+		for(int i=0;i<posts.size();i++) {
+			for(int j=0;j<posts.get(i).getImage().size();j++) {
+				listofImage.add(posts.get(i).getImage().get(j));
+			}
+		}
 
 		model.addAttribute("posts", posts);
 		String date = new SimpleDateFormat("yyyy-MM-dd").format(userGlobal.getDate_Of_Birth());
@@ -137,9 +145,6 @@ public class HomeController {
 		model.addAttribute("contactNo", userGlobal.getContactNo());
 		model.addAttribute("date_Of_Birth", date);
 		model.addAttribute("type", userGlobal.getType());
-
-		model.addAttribute("type", userGlobal.getType());
-		
 		
 		return "OwnerScreen";
 	}
@@ -211,6 +216,7 @@ public class HomeController {
 			storageService.save(files, randomNumber);
 			fileNames.add(randomNumber + "-" + files.getOriginalFilename());
 		});
+//List <?>fileList=new ArrayList<>(Arrays.asList(file));
 
 		message = "Uploaded the files successfully: " + fileNames;
 
@@ -230,7 +236,7 @@ public class HomeController {
 //		
 //		String id=" "+(postL.size()+1);
 		
-		
+//		posts.setImage(fileList);
 		posts=ser2.savePost(posts);
 		
 		return "redirect:OwnerScreen";
