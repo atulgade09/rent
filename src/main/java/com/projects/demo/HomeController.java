@@ -9,6 +9,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DialectOverride.Where;
@@ -40,10 +41,12 @@ public class HomeController {
 
 	@Autowired
 	FilesStorageService storageService;
-
-	private User ownerGlobal = new User();
-
-	public post postGlobal = new post();
+	
+	private User userGlobal=new User();
+	
+	private post postGlobal=new post();
+	
+	private List<post>filteredList=null;
 
 	@GetMapping("/")
 	public String home() {
@@ -55,18 +58,26 @@ public class HomeController {
 		return "register";
 	}
 
+	@RequestMapping("/FilteredCustomerScreen")
+	public String FilteredCustomerScreen(Model model) {
+		System.out.println("In");
+		model.addAttribute("posts",filteredList);
+		System.out.println("Out");
+		return "FilteredCustomerScreen";
+	}
+	
 	@GetMapping("/CustomerScreen")
 	public String CustomerScreen(Model model) {
 		List<post> posts = ser2.postList();
 
 		model.addAttribute("posts", posts);
-		String date = new SimpleDateFormat("yyyy-MM-dd").format(ownerGlobal.getDate_Of_Birth());
-		model.addAttribute("name", ownerGlobal.getName());
-		model.addAttribute("email", ownerGlobal.getEmail());
-		model.addAttribute("gender", ownerGlobal.getGender());
-		model.addAttribute("contactNo", ownerGlobal.getContactNo());
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(userGlobal.getDate_Of_Birth());
+		model.addAttribute("name", userGlobal.getName());
+		model.addAttribute("email", userGlobal.getEmail());
+		model.addAttribute("gender", userGlobal.getGender());
+		model.addAttribute("contactNo", userGlobal.getContactNo());
 		model.addAttribute("date_Of_Birth", date);
-		model.addAttribute("type", ownerGlobal.getType());
+		model.addAttribute("type", userGlobal.getType());
 		return "CustomerScreen";
 	}
 
@@ -75,6 +86,11 @@ public class HomeController {
 		model.addAttribute("type", postGlobal.getType());
 		model.addAttribute("address", postGlobal.getAddress());
 		model.addAttribute("price", postGlobal.getPrice());
+		model.addAttribute("type",postGlobal.getType());
+		model.addAttribute("userType",userGlobal.getType());
+		model.addAttribute("address",postGlobal.getAddress());
+		System.out.println("Address"+postGlobal.getAddress());
+		model.addAttribute("price",postGlobal.getPrice());
 		model.addAttribute("id", postGlobal.getId());
 
 		System.out.println("s0");
@@ -107,20 +123,23 @@ public class HomeController {
 		List<post> posts = new ArrayList<>();
 
 		for (int i = 0; i < ser2.postList().size(); i++) {
-			if (ser2.postList().get(i).getOwnerUsername().equals(ownerGlobal.getEmail())) {
+			if (ser2.postList().get(i).getOwnerUsername().equals(userGlobal.getEmail())) {
 				posts.add(ser2.postList().get(i));
 			}
 		}
 
 		model.addAttribute("posts", posts);
-		String date = new SimpleDateFormat("yyyy-MM-dd").format(ownerGlobal.getDate_Of_Birth());
-		model.addAttribute("name", ownerGlobal.getName());
-		model.addAttribute("email", ownerGlobal.getEmail());
-		model.addAttribute("gender", ownerGlobal.getGender());
-		model.addAttribute("contactNo", ownerGlobal.getContactNo());
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(userGlobal.getDate_Of_Birth());
+		model.addAttribute("name", userGlobal.getName());
+		model.addAttribute("email", userGlobal.getEmail());
+		model.addAttribute("gender", userGlobal.getGender());
+		model.addAttribute("contactNo", userGlobal.getContactNo());
 		model.addAttribute("date_Of_Birth", date);
-		model.addAttribute("type", ownerGlobal.getType());
+		model.addAttribute("type", userGlobal.getType());
 
+		model.addAttribute("type", userGlobal.getType());
+		
+		
 		return "OwnerScreen";
 	}
 
@@ -132,8 +151,10 @@ public class HomeController {
 	@PostMapping("/loginCheck")
 	public String loginCheck(@RequestParam("username") String username, @RequestParam("password") String password,
 			org.springframework.ui.Model model) {
+		if(username.equals("admin@gmail.com")&& password.equals("Admin")) return "redirect:AdminScreen";
 		User user = ser.findUser(username, password);
-		ownerGlobal = user;
+		userGlobal = user;
+		userGlobal=user;
 //		System.out.println(owner.getEmail()+" "+owner.getPassword());
 		if (user != null) {
 			if (user.getType().equals("Owner"))
@@ -162,8 +183,10 @@ public class HomeController {
 		User user = new User(email, name, contactNo, gender, type, date, password);
 
 		User o = ser.saveO(user);
-		ownerGlobal = user;
+		userGlobal = user;
 		if (user.getType().equals("Owner"))
+		userGlobal=user;
+		if(user.getType().equals("Owner"))
 			return "redirect:OwnerScreen";
 		else
 			return "redirect:CustomerScreen";
@@ -196,23 +219,30 @@ public class HomeController {
 //			System.out.println("not valid");
 //		}
 //
-		post posts = new post(id, ownerGlobal.getEmail(), type, give, rooms, address, price, description);
+		post posts = new post(id, userGlobal.getEmail(), type, give, rooms, address, price, description);
 //
 		posts.setImage(fileNames);
 
 		posts = ser2.savePost(posts);
 
+//		List<post> postL=ser2.postList();
+//		
+//		String id=" "+(postL.size()+1);
+		
+		
+		posts=ser2.savePost(posts);
+		
 		return "redirect:OwnerScreen";
 	}
 
 	@RequestMapping("/checking/{id}")
 	public String propertyScreen(@PathVariable String id) {
-		post p = ser2.postById(id);
-
-		System.out.println("ps" + p + " " + id);
-
-		postGlobal = p;
-
+post p=ser2.postById(id);
+		
+		System.out.println("ps"+p+" "+id);
+//		model.addAttribute("type", userGlobal.getType());
+		postGlobal=p;
+		
 		return "redirect:/propertyScreen";
 	}
 
@@ -223,6 +253,16 @@ public class HomeController {
 //		repo.deleteByValue(id);
 
 		return "redirect:/OwnerScreen";
+	}
+	
+	@PostMapping("/search")
+	public String searchPostByName(@RequestParam String searchName, Model model){
+		System.out.println(searchName);
+		List<post>list= repo.findAll();
+		filteredList= list.stream().filter(e->e.getType().equalsIgnoreCase(searchName)).collect(Collectors.toList());
+		System.out.println(filteredList);
+		System.out.println(list);
+		return "redirect:/FilteredCustomerScreen";
 	}
 
 }
