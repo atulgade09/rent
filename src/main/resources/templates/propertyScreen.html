@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Login Page</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+	<link rel="stylesheet" href="owner.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style type="text/css">
+		@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+
+		body {
+			background-color: #eee;
+			font-family: "Poppins", sans-serif;
+			font-weight: 300;
+		}
+
+
+
+		.search {
+			position: relative;
+			box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+
+		}
+
+		.search input {
+
+			height: 60px;
+			text-indent: 25px;
+			border: 2px solid #d6d4d4;
+
+
+		}
+
+
+		.search input:focus {
+
+			box-shadow: none;
+			border: 2px solid blue;
+
+
+		}
+
+		.search .fa-search {
+
+			position: absolute;
+			top: 20px;
+			left: 16px;
+
+		}
+
+		.search button {
+
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			height: 50px;
+			width: 110px;
+			background: blue;
+
+		}
+
+		body {
+			background-color: #D0D8E5;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.dropdown-toggle::after {
+			content: none;
+		}
+
+		input {
+			outline: none;
+			border: none;
+			border-bottom: 1px solid silver;
+			background-color: transparent;
+			width: 100%;
+		}
+
+		.nav-link {
+			color: rgb(95, 95, 95);
+			padding: 2px 20px;
+		}
+
+		.nav-link:hover {
+			color: black;
+			background-color: #F3F3F3;
+			border-radius: 2px;
+			transition: 0.5s;
+			box-shadow: 0px 0px 2px 0px rgb(95, 95, 95);
+		}
+
+		.card {
+			background-color: #fff;
+			border: none;
+		}
+
+		#mng {
+			color: aliceblue;
+			background: linear-gradient(rgb(48, 92, 107), rgb(48, 92, 107));
+		}
+
+		#mng:hover {
+			color: white;
+			background: linear-gradient(45deg, rgb(6, 65, 83), rgb(18, 58, 95));
+		}
+	</style>
+</head>
+
+<body>
+	<form action="/home" method="post">
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#"><b>Rent</b></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item me-2"><a id="navText" class="nav-link disabled" aria-current="page"><b
+									th:text="${userType}"></b></a>
+						</li>
+					</ul>
+					<ul class="navbar-nav ms-auto">
+
+						<li class="nav-item me-2">
+							<div class="dropdown" th:if="${userType=='Owner'}">
+								<button class="btn btn-secondary btn-sm dropdown-toggle" id="mng" type="button"
+									data-bs-toggle="dropdown" aria-expanded="false">
+									Manage</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#">Edit</a></li>
+									<li><a class="dropdown-item" th:href="${'deletePost/'+id}">Delete</a></li>
+								</ul>
+							</div>
+
+						</li>
+
+						<li class="nav-item me-2"><a id="navText" class="nav-link" th:if="${userType=='Owner'}"
+								aria-current="page" href="OwnerScreen"><b>Home</b></a>
+						</li>
+						<li class="nav-item me-2"><a id="navText" class="nav-link" th:if="${userType!='Owner'}"
+								aria-current="page" href="CustomerScreen"><b>Home</b></a>
+						</li>
+						<li class="nav-item"><a id="navText" class="nav-link" aria-current="page"
+								href="/"><b>Logout</b></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+
+		<div class="container-fluid">
+			<div id="carouselExampleIndicators" class="carousel slide">
+				<!-- <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div> -->
+				<div class="carousel-inner">
+					<div class="carousel-inner">
+
+						<div class="carousel-item active" th:if="${img1==''}">
+							<img height="400"
+								src="https://user-images.githubusercontent.com/10515204/56117400-9a911800-5f85-11e9-878b-3f998609a6c8.jpg"
+								class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item active" th:unless="${img1==''}">
+							<img height="400" th:src="${'uploads/'+img1}" class="d-block w-100" alt="...">
+						</div>
+
+
+						<div class="carousel-item" th:if="${img2==''}">
+							<img height="400"
+								src="https://user-images.githubusercontent.com/10515204/56117400-9a911800-5f85-11e9-878b-3f998609a6c8.jpg"
+								class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item" th:unless="${img2==''}">
+							<img height="400" th:src="${'uploads/'+img2}" class="d-block w-100" alt="...">
+						</div>
+
+
+						<div class="carousel-item" th:if="${img3==''}">
+							<img height="400"
+								src="https://user-images.githubusercontent.com/10515204/56117400-9a911800-5f85-11e9-878b-3f998609a6c8.jpg"
+								class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item" th:unless="${img3==''}">
+							<img height="400" th:src="${'uploads/'+img3}" class="d-block w-100" alt="...">
+						</div>
+
+
+						<div class="carousel-item" th:if="${img4==''}">
+							<img height="400"
+								src="https://user-images.githubusercontent.com/10515204/56117400-9a911800-5f85-11e9-878b-3f998609a6c8.jpg"
+								class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item" th:unless="${img4==''}">
+							<img height="400" th:src="${'uploads/'+img4}" class="d-block w-100" alt="...">
+						</div>
+					</div>
+
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+
+		<div class="container-fluid mt-5">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-6">
+							<h5 th:text="${type}"></h5>
+						</div>
+						<div class="col-md-6 text-end">Price : <span th:text="${price} +'  INR'"
+								class="btn btn-success"></span>
+
+						</div>
+						<div class="row">
+							<h6>Address : </h6>
+							<span class="text-dark"><b th:text="${address}"></b></span>
+						</div>
+					</div>
+					<div class="text-end" th:if="${userType!='Owner'}">
+						<button class="btn btn-danger shadow">Book Now</button>
+						<button class="btn btn-warning shadow"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+								height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+								<path
+									d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+							</svg> Enquiry </button>
+					</div>
+				</div>
+			</div>
+
+
+
+	</form>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.js"
+		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
