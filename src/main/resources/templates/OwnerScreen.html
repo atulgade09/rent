@@ -164,8 +164,16 @@ input {
 					<div class="card m-3" th:each="post:${posts}" style="width: 38rem;" id="crd">
 						<div class="card-body">
 							<div class="d-flex position-relative">
+<<<<<<< HEAD
 								<img height="130"
 									th:src="${'uploads/'+{post.image}}"
+=======
+								<img height="130" th:if="${post.type=='Row House'}"
+									src="images/rowhouse.png"
+									class="flex-shrink-0 me-3" alt="...">
+								<img height="130" th:if="${post.type=='Flat'}"
+									src="images/flat.jpeg"
+>>>>>>> branch 'master' of https://github.com/atulgade09/rent.git
 									class="flex-shrink-0 me-3" alt="...">
 								<div>
 									<h5 class="mt-0" th:text="${post.type}"></h5>

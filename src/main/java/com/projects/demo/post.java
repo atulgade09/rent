@@ -12,6 +12,7 @@ public class post {
 	@Override
 	public String toString() {
 		return "post [id=" + id + ", ownerUsername=" + ownerUsername + ", type=" + type + ", give=" + give + ", rooms="
+<<<<<<< HEAD
 				+ rooms + ", address=" + address + ", price=" + price + ", description=" + description + ", image="
 				+ image + ", status=" + status + "]";
 	}
@@ -82,6 +83,42 @@ public class post {
 	}
 
 	
+=======
+				+ rooms + ", address=" + address + ", price=" + price + ", description=" + description+",image = " +image+ "]";
+	}
+
+	@Id
+	private String id;
+	
+	private String ownerUsername;
+	private String type;
+	private String give;
+	private String rooms;
+	private String address;
+	private String price;
+	private String description;
+	private List<String> image;
+
+	public List<String> getImage() {
+		return image;
+	}
+
+	public void setImage(List<String> image) {
+		this.image = image;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public post() {
+		// TODO Auto-generated constructor stub
+	}
+>>>>>>> branch 'master' of https://github.com/atulgade09/rent.git
 
 	public post(String id, String ownerUsername, String type, String give, String rooms, String address, String price,
 			String description) {
