@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 
@@ -9,216 +9,216 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous" />
 <link rel="stylesheet" href="owner.css" />
- <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap"
 	rel="stylesheet" />
-	<script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-    ></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style type="text/css">
-      .search {
-        position: relative;
-        box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
-      }
+.search {
+	position: relative;
+	box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+}
 
-      .search input {
-        height: 60px;
-        text-indent: 25px;
-        border: 2px solid #d6d4d4;
-      }
+.search input {
+	height: 60px;
+	text-indent: 25px;
+	border: 2px solid #d6d4d4;
+}
 
-      .search input:focus {
-        box-shadow: none;
-        border: 2px solid blue;
-      }
+.search input:focus {
+	box-shadow: none;
+	border: 2px solid blue;
+}
 
-      .search .fa-search {
-        position: absolute;
-        top: 20px;
-        left: 16px;
-      }
+.search .fa-search {
+	position: absolute;
+	top: 20px;
+	left: 16px;
+}
 
-      .search button {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        height: 50px;
-        width: 110px;
-        background: blue;
-      }
-      body {
-        /* background-image: url("RITZ-CARLTON\ \ PH.png"); */
-        /* background-repeat: no-repeat; */
-        /* background-size: cover; */
-        background-color: #e3e7ed;
-        height: 100%;
-        font-family: "Poppins", sans-serif;
-      }
+.search button {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	height: 50px;
+	width: 110px;
+	background: blue;
+}
 
-      .dropdown-toggle::after {
-        content: none;
-      }
+body {
+	/* background-image: url("RITZ-CARLTON\ \ PH.png"); */
+	/* background-repeat: no-repeat; */
+	/* background-size: cover; */
+	background-color: #e3e7ed;
+	height: 100%;
+	font-family: "Poppins", sans-serif;
+}
 
-      input {
-        outline: none;
-        border: none;
-        border-bottom: 1px solid silver;
-        background-color: transparent;
-        width: 100%;
-      }
+.dropdown-toggle::after {
+	content: none;
+}
 
-      .nav-link {
-        color: rgb(89, 88, 88);
-        padding: 2px 20px;
-      }
+input {
+	outline: none;
+	border: none;
+	border-bottom: 1px solid silver;
+	background-color: transparent;
+	width: 100%;
+}
 
-      .nav-link:hover {
-        color: rgb(243, 240, 240);
-        background-color: #a19f9f;
-        border-radius: 2px;
-        transition: 0.2s;
-        box-shadow: 0px 0px 2px 0px rgb(95, 95, 95);
-      }
+.nav-link {
+	color: rgb(89, 88, 88);
+	padding: 2px 20px;
+}
 
-      .card {
-        background-color: #a2b7c4;
-        border: none;
-      }
+.nav-link:hover {
+	color: rgb(243, 240, 240);
+	background-color: #a19f9f;
+	border-radius: 2px;
+	transition: 0.2s;
+	box-shadow: 0px 0px 2px 0px rgb(95, 95, 95);
+}
 
-      #crd {
-        background-color: #919aa5;
-        color: antiquewhite;
-      }
+.card {
+	background-color: #a2b7c4;
+	border: none;
+}
 
-      #crd:hover {
-        transition: 0.5s;
-        background-color: #3e6184;
-        color: white;
-        transform: scale(1.01);
-      }
+#crd {
+	background-color: #919aa5;
+	color: antiquewhite;
+}
 
-      .btn {
-        width: 150px;
-      }
+#crd:hover {
+	transition: 0.5s;
+	background-color: #3e6184;
+	color: white;
+	transform: scale(1.01);
+}
 
-    
+.btn {
+	width: 150px;
+}
 </style>
 </head>
 
 <body>
-	
-		<nav class="navbar navbar-expand-lg bg-body-tertiary">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#"><b>Rent</b></a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item"><a id="navText"
-							class="nav-link disabled" aria-current="page"><b
-								th:text="${type}">Owner</b></a></li>
-						<li class="nav-item"><a id="navText"
-							class="nav-link text-dark" aria-current="page"
-							href="propertyScreen"><b> <svg
-										xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor" class="bi bi-bell-fill"
-										viewBox="0 0 16 16">
-										<path
-											d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
-									</svg>
-							</b></a></li>
-						<li class="nav-item"><a id="navText" class="nav-link"
-							aria-current="page" href="/"><b>Logout</b></a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
 
-		<div class="container-fluid" id="MiddleBody">
-			<div class="row pe-3 ps-3 justify-content-center" id="row1">
-				<div class="card">
-					<div class="card-body text-secondary">
-						<div class="row">
-							<div class="col-md-2 text-center">
-								<img src="images/profile.png" style="border-radius: 50%;"
-									height="90" width="90" alt="" /> <br /> <span
-									style="font-size: 13px" class="text-dark"><b
-									th:text="${admin.name}"></b></span>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"><b>ADMIN PORTAL</b></a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a id="navText" class="nav-link disabled"
+						aria-current="page"><b th:text="${type}">Owner</b></a></li>
+					<li class="nav-item"><a id="navText"
+						class="nav-link text-dark" aria-current="page"
+						href="propertyScreen"><b> <svg
+									xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+									fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+										<path
+										d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+									</svg>
+						</b></a></li>
+					<li class="nav-item"><a id="navText" class="nav-link"
+						aria-current="page" href="/"><b>Logout</b></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid" id="MiddleBody">
+		<div class="row pe-3 ps-3 justify-content-center" id="row1">
+			<div class="card">
+				<div class="card-body text-secondary">
+					<div class="row">
+						<div class="col-md-2 text-center">
+							<img src="images/profile.png" style="border-radius: 50%;"
+								height="90" width="90" alt="" /> <br /> <span
+								style="font-size: 13px" class="text-dark"><b
+								th:text="${admin.name}"></b></span>
+						</div>
+						<div class="col-md-4 border-start">
+							<div class="row mb-2">
+								<div class="col-4">Email : -</div>
+								<div class="col-8">
+									<span class="text-dark"><b th:text="${admin.email}"></b></span>
+								</div>
 							</div>
-							<div class="col-md-4 border-start">
-								<div class="row mb-2">
-									<div class="col-4">Email : -</div>
-									<div class="col-8">
-										<span class="text-dark"><b th:text="${admin.email}"></b></span>
-									</div>
-								</div>
-								<div class="row mb-2">
-									<div class="col-4">Contact : -</div>
-									<div class="col-8">
-										<span class="text-dark"><b th:text="${admin.contactNo}"></b></span>
-									</div>
-								</div>
-								<div class="row mb-2">
-									<div class="col-4">Gender : -</div>
-									<div class="col-8">
-										<span class="text-dark"><b th:text="${admin.gender}"></b></span>
-									</div>
-								</div>
-								<div class="row mb-1">
-									<div class="col-4">BirthDate : -</div>
-									<div class="col-8">
-										<span class="text-dark"><b th:text="${admin.date_Of_Birth}"></b></span>
-									</div>
+							<div class="row mb-2">
+								<div class="col-4">Contact : -</div>
+								<div class="col-8">
+									<span class="text-dark"><b th:text="${admin.contactNo}"></b></span>
 								</div>
 							</div>
-							<div class="col-md-6 border-start">
-								<div class="col-3">Address : -</div>
-								<div class="col-9">
-									<span class="text-dark"><b></b></span>
+							<div class="row mb-2">
+								<div class="col-4">Gender : -</div>
+								<div class="col-8">
+									<span class="text-dark"><b th:text="${admin.gender}"></b></span>
+								</div>
+							</div>
+							<div class="row mb-1">
+								<div class="col-4">BirthDate : -</div>
+								<div class="col-8">
+									<span class="text-dark"><b
+										th:text="${admin.date_Of_Birth}"></b></span>
 								</div>
 							</div>
 						</div>
+						<!-- <div class="col-md-6 border-start">
+							<div class="col-3">Address : -</div>
+							<div class="col-9">
+								<span class="text-dark"><b></b></span>
+							</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
-
-	
-
-		
-<div class="conatiner-fluid mt-5 ">
-<table class="table table-light table-striped table-hover shadow rounded-3">
- <thead >
- <tr>
- <th>Type Of Property</th>
- <th>Owner</th>
- <th>Price</th>
- <th>Status</th>
-  <th>Commission</th>
- </tr>
- </thead>
- <tbody th:each="post:${posts}" >
- <tr>
- <td th:text="${post.type}"><a th:href="${'checking/'+post.id}" class="stretched-link text-white">Click</a></td>
-  <td th:text="${post.ownerUsername}"></td>
-   <td th:text="${post.price}+'  INR'" ></td>
-    <td th:if="${post.status=='Available'}"><button  th:text="${post.status}" class=" btn btn-success"></button></td>
- <td th:if="${post.status!='Available'}"><button  th:text="${post.status}" class=" btn btn-danger"></button></td>
-      <td th:if="${post.status=='Available'}" th:text="${post.commission}" ></td>
- </tr>
- </tbody>
-</table>
-</div>
-
 		</div>
+
+
+
+
+		<div class="conatiner-fluid mt-5 ">
+			<table
+				class="table table-light table-striped table-hover shadow rounded-3">
+				<thead>
+					<tr>
+						<th>Type Of Property</th>
+						<th>Owner</th>
+						<th>Price</th>
+						<th>Status</th>
+						<th>Commission</th>
+					</tr>
+				</thead>
+				<tbody th:each="post:${posts}">
+					<tr>
+						<td th:text="${post.type}"><a
+							th:href="${'checking/'+post.id}"
+							class="stretched-link text-white">Click</a></td>
+						<td th:text="${post.ownerUsername}"></td>
+						<td th:text="${post.price}+'  INR'"></td>
+						<td th:if="${post.status=='Available'}"><button
+								th:text="${post.status}" class=" btn btn-success"></button></td>
+						<td th:if="${post.status!='Available'}"><button
+								class=" btn btn-danger">SOLD</button></td>
+						<td 
+							th:text="${post.commission}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
 
 
 	<script
@@ -232,5 +232,4 @@
 </body>
 
 </html>
-=======
->>>>>>> branch 'master' of https://github.com/atulgade09/rent.git
+
